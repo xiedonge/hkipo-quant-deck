@@ -236,7 +236,8 @@ button {
 .profile-grid,
 .goal-grid,
 .model-grid,
-.output-grid {
+.output-grid,
+.api-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
@@ -337,6 +338,24 @@ button {
 .signal-row p {
   margin: 6px 0 0;
   color: var(--muted);
+}
+
+.api-meta {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.api-meta span {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
 }
 
 .muted {
