@@ -233,11 +233,8 @@ button {
   margin-top: 0;
 }
 
-.profile-grid,
 .goal-grid,
-.model-grid,
-.output-grid,
-.api-grid {
+.model-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
@@ -249,21 +246,6 @@ button {
   border-radius: var(--radius-md);
   border: 1px solid var(--stroke);
   padding: 22px;
-}
-
-.card.wide {
-  grid-column: span 2;
-}
-
-.label {
-  color: var(--muted);
-  font-size: 0.84rem;
-  margin-bottom: 10px;
-}
-
-.value {
-  font-size: 1rem;
-  line-height: 1.6;
 }
 
 .goal-grid h3 {
@@ -340,24 +322,6 @@ button {
   color: var(--muted);
 }
 
-.api-meta {
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.api-meta span {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-}
-
 .muted {
   color: var(--muted);
   font-size: 0.92rem;
@@ -386,40 +350,169 @@ button {
   letter-spacing: 0.18em;
 }
 
-.output-card {
+.calendar-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: 24px;
+  margin-top: 28px;
+  align-items: start;
+}
+
+.calendar-list {
+  display: grid;
+  gap: 14px;
+}
+
+.calendar-card {
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  color: inherit;
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.calendar-card:hover {
+  border-color: rgba(242, 139, 60, 0.6);
+  transform: translateY(-2px);
+}
+
+.calendar-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(242, 139, 60, 0.2);
+}
+
+.calendar-date {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.calendar-name {
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.calendar-code {
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.calendar-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+}
+
+.status-open {
+  background: rgba(242, 139, 60, 0.2);
+  color: var(--accent);
+}
+
+.status-upcoming {
+  background: rgba(79, 209, 197, 0.18);
+  color: var(--teal);
+}
+
+.status-listed {
+  background: rgba(255, 255, 255, 0.12);
+  color: #d6dbe7;
+}
+
+.calendar-tag {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d6dbe7;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+
+.report-card {
+  display: grid;
+  gap: 16px;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.report-body {
   display: grid;
   gap: 18px;
 }
 
-.output-header {
+.report-section {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 12, 18, 0.75);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.report-section h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.report-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 0.92rem;
+}
+
+.report-label {
+  color: var(--muted);
+}
+
+.report-value {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.score-line {
+  display: grid;
+  gap: 10px;
+}
+
+.score-metric {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  font-weight: 600;
 }
 
-pre {
-  background: rgba(10, 12, 18, 0.9);
-  border-radius: 16px;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  white-space: pre-wrap;
-  font-family: "Space Grotesk", "Noto Sans SC", sans-serif;
-  font-size: 0.9rem;
-  color: #d6dbe7;
-  line-height: 1.6;
+.score-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent) calc(var(--score) * 1%), rgba(255, 255, 255, 0.08) 0);
+}
+
+.report-note {
+  color: var(--muted);
+  font-size: 0.88rem;
   margin: 0;
-}
-
-.data-card h3 {
-  margin-bottom: 16px;
-}
-
-.chip-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 16px;
 }
 
 .footer {
@@ -461,8 +554,8 @@ pre {
 }
 
 @media (max-width: 900px) {
-  .card.wide {
-    grid-column: span 1;
+  .calendar-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -475,7 +568,7 @@ pre {
     padding: 22px;
   }
 
-  .output-header {
+  .report-header {
     flex-direction: column;
     align-items: flex-start;
   }

@@ -19,7 +19,7 @@
           输出概率逻辑驱动的申购策略。
         </p>
         <div class="cta-row">
-          <button class="primary">获取综合评估</button>
+          <button class="primary" data-scroll="calendar">查看打新日历</button>
           <button class="ghost" data-scroll="model">查看量化模型</button>
         </div>
         <div class="hero-stats">
@@ -60,33 +60,6 @@
     </header>
 
     <main>
-      <section class="section reveal">
-        <div class="section-title">
-          <h2>Profile</h2>
-          <p>角色与定位</p>
-        </div>
-        <div class="profile-grid">
-          <div class="card">
-            <p class="label">作者</p>
-            <p class="value">凡凡子 (Prompt生成器)</p>
-          </div>
-          <div class="card">
-            <p class="label">版本</p>
-            <p class="value">1.2</p>
-          </div>
-          <div class="card">
-            <p class="label">语言</p>
-            <p class="value">中文</p>
-          </div>
-          <div class="card wide">
-            <p class="label">核心描述</p>
-            <p class="value">
-              顶级资深分析师，擅长将复杂IPO招股书拆解为可执行的业务模型，并结合实时市场数据与历史护盘记录进行回测。
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section class="section reveal">
         <div class="section-title">
           <h2>Goals</h2>
@@ -205,86 +178,24 @@
         </div>
       </section>
 
-      <section class="section reveal">
+      <section id="calendar" class="section reveal">
         <div class="section-title">
-          <h2>Data API</h2>
-          <p>免费 / 低门槛接口建议</p>
+          <h2>打新日历</h2>
+          <p>点击新股生成对应评估报告（示例数据，可替换为实时抓取）</p>
         </div>
-        <div class="api-grid">
-          <div class="card">
-            <h3>社区型开源接口 (推荐初期使用)</h3>
-            <p class="muted">
-              适合个人开发者或项目原型阶段，通常通过爬取公开财报与交易所公告并结构化提供。
-            </p>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <h3>AkShare (Python库)</h3>
-              <span class="chip">免费开源</span>
-            </div>
-            <p>
-              强大的金融数据接口库，聚合港股IPO数据，包括新股预告、中签结果、首发上市日期等。
-            </p>
-            <div class="api-meta">
-              <span>优点：免费、开源、Python直接调用</span>
-              <span>接口：`stock_hk_ipo_get`</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal">
-        <div class="section-title">
-          <h2>Output</h2>
-          <p>报告模板</p>
-        </div>
-        <div class="output-grid">
-          <div class="card output-card">
-            <div class="output-header">
+        <div class="calendar-grid">
+          <div class="calendar-list" id="ipo-list"></div>
+          <div class="card report-card">
+            <div class="report-header">
               <div>
-                <h3>打新综合评估报告</h3>
-                <p class="muted">结构化输出，适配研究与交易决策。</p>
+                <h3 id="report-title">选择新股查看报告</h3>
+                <p class="muted" id="report-subtitle">报告将自动填充业务与模型评分信息。</p>
               </div>
-              <button id="copy-template" class="ghost">复制模板</button>
+              <button id="copy-report" class="ghost">复制报告</button>
             </div>
-            <pre id="template-text">
-【股票名称 & 代码】打新综合评估报告
-
-【业务维度概括】
-- 核心业务: ...
-- 行业地位: ...
-- 营收规模: ...
-
-【核心数据抓取】
-- 招股价/市值: ...
-- 保荐人/稳价人: ...
-- 基石占比: ...
-- 当前超购倍数: ...
-
-【模型评分】
-1. 涨跌概率: [X] 分
-   逻辑支撑: ...
-2. 打中概率: [Y] 分
-   逻辑支撑: ...
-
-【专家操作建议】
-- 申购策略: ...
-- 风控提示: ...
-            </pre>
-          </div>
-          <div class="card data-card">
-            <h3>核心数据抓取项</h3>
-            <div class="chip-grid">
-              <span class="chip">招股价 / 市值</span>
-              <span class="chip">保荐人 / 稳价人</span>
-              <span class="chip">基石占比</span>
-              <span class="chip">超购倍数</span>
-              <span class="chip">首日胜率</span>
-              <span class="chip">护盘记录</span>
+            <div id="report-body" class="report-body">
+              <p class="muted">请选择左侧新股以生成报告。</p>
             </div>
-            <p class="muted">
-              支持自定义数据源优先级，优先使用披露易与官方公告，其次为高频交易平台数据。
-            </p>
           </div>
         </div>
       </section>
