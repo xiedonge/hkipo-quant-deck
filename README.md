@@ -1,10 +1,10 @@
-# 港股新股量化决策专家（单页网站）
+# 港股新股量化决策专家（单页网站 + 实时数据）
 
-本项目是一个以“港股新股量化决策专家”为主题的单页展示网站，聚焦 IPO 业务解读、评分模型与申购策略输出，适合用于产品原型展示与研究报告落地页。
+本项目是一个以“港股新股量化决策专家”为主题的单页展示网站，包含打新日历与动态报告面板，并通过 AkShare 实时获取港股 IPO 数据。
 
 ## 亮点
-- 结构化展示：Goals、Methodology、Workflow
 - 打新日历：点击新股生成对应评估报告
+- 动态数据：后端接口从 AkShare 拉取 IPO 数据
 - 交互体验：滚动显隐动画、报告一键复制
 - 视觉风格：金融分析仪表盘风格，深色渐变背景与数据卡片
 
@@ -15,20 +15,40 @@
 - Workflow：执行流程
 - 打新日历：新股日历 + 报告生成面板
 
-## 说明
-页面内打新日历为示例数据，可替换为实时抓取或接口返回的数据源。
+## 后端接口
+后端基于 FastAPI，调用 AkShare 的 `stock_hk_ipo_get` 获取 IPO 列表并做结构化输出。
 
-## 技术栈
-- HTML / CSS / JavaScript
-- 无框架，便于快速部署
+### 接口
+- `GET /api/health`
+- `GET /api/ipo?refresh=1&limit=50`
 
-## 本地使用
-直接打开 `index.html` 即可预览。
+说明：
+- `refresh=1` 可强制刷新缓存（默认 5 分钟缓存）
+- `limit` 控制返回条数
+
+## 本地运行
+1. 安装依赖
+   ```bash
+   python3 -m venv .venv
+   .venv/bin/pip install -r requirements.txt
+   ```
+2. 启动后端
+   ```bash
+   .venv/bin/uvicorn backend.app:app --reload --port 8000
+   ```
+3. 打开 `index.html`
+   - 默认请求同域 `/api/ipo`
+   - 若前后端分离，可在 `index.html` 中加入：
+     ```html
+     <script>window.__API_BASE__ = "http://localhost:8000";</script>
+     ```
 
 ## 文件说明
 - `index.html` 页面结构
 - `styles.css` 视觉样式
-- `script.js` 交互脚本与示例数据
+- `script.js` 前端逻辑（请求 `/api/ipo` 并渲染报告）
+- `backend/app.py` 后端 API
+- `requirements.txt` 后端依赖
 - `task.md` 原始需求说明
 
 ## 许可

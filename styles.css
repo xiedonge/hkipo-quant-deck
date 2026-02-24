@@ -233,6 +233,21 @@ button {
   margin-top: 0;
 }
 
+.data-status {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+}
+
+.data-status.error {
+  color: #f38b7a;
+}
+
+.data-status.ok {
+  color: var(--teal);
+}
+
 .goal-grid,
 .model-grid {
   display: grid;
@@ -432,6 +447,11 @@ button {
 .status-listed {
   background: rgba(255, 255, 255, 0.12);
   color: #d6dbe7;
+}
+
+.status-pending {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--muted);
 }
 
 .calendar-tag {
