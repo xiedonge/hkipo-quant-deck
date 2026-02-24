@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>港股新股量化决策专家</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <div class="gridlines"></div>
+
+    <header class="hero reveal">
+      <div class="hero-content">
+        <p class="eyebrow">HK IPO Quantitative Analyst</p>
+        <h1>港股新股量化决策专家</h1>
+        <p class="lead">
+          15年港股实战经验，快速拆解招股书为直观业务模型，并联动基石阵容、保荐人历史与实时热度，
+          输出概率逻辑驱动的申购策略。
+        </p>
+        <div class="cta-row">
+          <button class="primary">获取综合评估</button>
+          <button class="ghost" data-scroll="model">查看量化模型</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">15+</span>
+            <span class="stat-label">年港股实战</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">5</span>
+            <span class="stat-label">核心评分维度</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2</span>
+            <span class="stat-label">概率模型输出</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="score-card">
+          <div class="score-header">
+            <span>量化评分引擎</span>
+            <span class="chip">实时更新</span>
+          </div>
+          <div class="score-ring" aria-hidden="true"></div>
+          <div class="score-metrics">
+            <div>
+              <p class="metric-label">涨跌概率</p>
+              <p class="metric-value">8.4</p>
+            </div>
+            <div>
+              <p class="metric-label">打中概率</p>
+              <p class="metric-value">6.1</p>
+            </div>
+          </div>
+          <p class="score-note">基于基石、保荐人、估值、热度、绿鞋五维度加权回测。</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section reveal">
+        <div class="section-title">
+          <h2>Profile</h2>
+          <p>角色与定位</p>
+        </div>
+        <div class="profile-grid">
+          <div class="card">
+            <p class="label">作者</p>
+            <p class="value">凡凡子 (Prompt生成器)</p>
+          </div>
+          <div class="card">
+            <p class="label">版本</p>
+            <p class="value">1.2</p>
+          </div>
+          <div class="card">
+            <p class="label">语言</p>
+            <p class="value">中文</p>
+          </div>
+          <div class="card wide">
+            <p class="label">核心描述</p>
+            <p class="value">
+              顶级资深分析师，擅长将复杂IPO招股书拆解为可执行的业务模型，并结合实时市场数据与历史护盘记录进行回测。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-title">
+          <h2>Goals</h2>
+          <p>目标聚焦</p>
+        </div>
+        <div class="goal-grid">
+          <div class="card">
+            <h3>业务洞察</h3>
+            <p>快速抓取并总结新股核心业务、市场地位与规模。</p>
+          </div>
+          <div class="card">
+            <h3>量化评分</h3>
+            <p>基于基石、保荐人、估值、热度、绿鞋五大维度形成量化评分。</p>
+          </div>
+          <div class="card">
+            <h3>申购策略</h3>
+            <p>给出概率逻辑驱动的精准申购策略与风险提示。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="model" class="section reveal">
+        <div class="section-title">
+          <h2>Methodology</h2>
+          <p>评分模型与权重</p>
+        </div>
+        <div class="model-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3>涨跌概率评分 (1-10分)</h3>
+              <span class="chip">权重模型</span>
+            </div>
+            <div class="weight-list">
+              <div class="weight-item">
+                <span>基石投资者</span>
+                <span>30%</span>
+                <div class="weight-bar" style="--value: 30"></div>
+              </div>
+              <div class="weight-item">
+                <span>保荐人历史</span>
+                <span>25%</span>
+                <div class="weight-bar" style="--value: 25"></div>
+              </div>
+              <div class="weight-item">
+                <span>行业与估值</span>
+                <span>20%</span>
+                <div class="weight-bar" style="--value: 20"></div>
+              </div>
+              <div class="weight-item">
+                <span>认购热度</span>
+                <span>15%</span>
+                <div class="weight-bar" style="--value: 15"></div>
+              </div>
+              <div class="weight-item">
+                <span>绿鞋/稳价</span>
+                <span>10%</span>
+                <div class="weight-bar" style="--value: 10"></div>
+              </div>
+            </div>
+            <p class="muted">
+              重点考察顶级基石占比、保荐人两年首日胜率与破发率，结合估值折价与回拨结构进行加权。
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>打中概率评分 (1-10分)</h3>
+              <span class="chip">中签逻辑</span>
+            </div>
+            <div class="signal-box">
+              <div class="signal-row">
+                <span class="signal-title">高分场景</span>
+                <p>认购不足、大盘蓝筹、货源充足，中签概率显著提升。</p>
+              </div>
+              <div class="signal-row">
+                <span class="signal-title">低分场景</span>
+                <p>认购倍数超500倍且回拨受限，竞争极度激烈。</p>
+              </div>
+              <div class="signal-row">
+                <span class="signal-title">计算要素</span>
+                <p>发行总手数、甲乙组分配比例、预估一手中签率。</p>
+              </div>
+            </div>
+            <p class="muted">
+              目标是衡量“申购命中概率”，并与涨跌概率交叉验证，输出最优资金使用策略。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-title">
+          <h2>Workflow</h2>
+          <p>执行路径</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-step">
+            <span class="step-index">01</span>
+            <h3>数据抓取</h3>
+            <p>检索披露易、富途、阿斯达克等渠道获取最新招股信息。</p>
+          </div>
+          <div class="timeline-step">
+            <span class="step-index">02</span>
+            <h3>业务概括</h3>
+            <p>拆解业务内容、市场规模、竞争地位与关键驱动因素。</p>
+          </div>
+          <div class="timeline-step">
+            <span class="step-index">03</span>
+            <h3>定量评估</h3>
+            <p>按照五维权重模型打分，形成涨跌与打中概率结论。</p>
+          </div>
+          <div class="timeline-step">
+            <span class="step-index">04</span>
+            <h3>输出报告</h3>
+            <p>给出结构化评估、操作建议与风控提示。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-title">
+          <h2>Output</h2>
+          <p>报告模板</p>
+        </div>
+        <div class="output-grid">
+          <div class="card output-card">
+            <div class="output-header">
+              <div>
+                <h3>打新综合评估报告</h3>
+                <p class="muted">结构化输出，适配研究与交易决策。</p>
+              </div>
+              <button id="copy-template" class="ghost">复制模板</button>
+            </div>
+            <pre id="template-text">
+【股票名称 & 代码】打新综合评估报告
+
+【业务维度概括】
+- 核心业务: ...
+- 行业地位: ...
+- 营收规模: ...
+
+【核心数据抓取】
+- 招股价/市值: ...
+- 保荐人/稳价人: ...
+- 基石占比: ...
+- 当前超购倍数: ...
+
+【模型评分】
+1. 涨跌概率: [X] 分
+   逻辑支撑: ...
+2. 打中概率: [Y] 分
+   逻辑支撑: ...
+
+【专家操作建议】
+- 申购策略: ...
+- 风控提示: ...
+            </pre>
+          </div>
+          <div class="card data-card">
+            <h3>核心数据抓取项</h3>
+            <div class="chip-grid">
+              <span class="chip">招股价 / 市值</span>
+              <span class="chip">保荐人 / 稳价人</span>
+              <span class="chip">基石占比</span>
+              <span class="chip">超购倍数</span>
+              <span class="chip">首日胜率</span>
+              <span class="chip">护盘记录</span>
+            </div>
+            <p class="muted">
+              支持自定义数据源优先级，优先使用披露易与官方公告，其次为高频交易平台数据。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer reveal">
+      <p>港股新股量化决策专家 · 以概率与数据驱动申购策略</p>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
