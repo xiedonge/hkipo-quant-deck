@@ -495,7 +495,7 @@ button {
 
 .report-row {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  grid-template-columns: 140px 1fr;
   gap: 10px;
   align-items: start;
   font-size: 0.92rem;

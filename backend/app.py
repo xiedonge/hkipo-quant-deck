@@ -108,6 +108,11 @@ def _safe_value(value: Any) -> str:
     return str(value).strip()
 
 
+def _join_non_empty(values: List[str], sep: str = " / ") -> str:
+    parts = [value for value in values if value]
+    return sep.join(parts)
+
+
 def _combine_price_market(price: str, market_cap: str) -> str:
     if price and market_cap:
         return f"{price} / {market_cap}"
@@ -161,9 +166,23 @@ def _normalize_items(df) -> List[Dict[str, Any]]:
         ),
         "market_cap": _find_column(columns, ["市值", "发行市值", "总市值", "预期市值"]),
         "sponsor": _find_column(columns, ["保荐人", "保荐", "保荐人/稳价人", "保荐人及稳价人"]),
+        "stabilizer": _find_column(columns, ["稳价人", "稳定价格人", "稳定价格人", "稳价人/保荐人"]),
         "industry": _find_column(columns, ["行业", "所属行业", "板块", "行业类别"]),
         "cornerstone": _find_column(columns, ["基石", "基石投资者", "基石占比"]),
         "oversub": _find_column(columns, ["超购", "认购倍数", "融资倍数", "孖展倍数", "超额认购"]),
+        "greenshoe": _find_column(columns, ["绿鞋", "超额配售", "超额配售权", "超额配售比例", "绿鞋比例"]),
+        "shares": _find_column(
+            columns,
+            ["发行股数", "发售股数", "发售股份", "发行数量", "发行股本", "发售股份数"],
+        ),
+        "tranche": _find_column(
+            columns,
+            ["甲组", "乙组", "公开发售", "国际配售", "分配比例", "回拨比例", "公开发售比例", "国际配售比例"],
+        ),
+        "lottery": _find_column(columns, ["一手中签率", "中签率", "一手中签", "配售比例"]),
+        "valuation": _find_column(columns, ["市盈率", "PE", "PS", "估值", "估值区间", "市净率", "发行估值"]),
+        "sponsor_history": _find_column(columns, ["首日胜率", "破发率", "护盘", "稳价记录", "保荐人历史"]),
+        "heat": _find_column(columns, ["回拨", "认购倍数", "融资倍数", "孖展倍数", "超购倍数", "超额认购"]),
     }
 
     items: List[Dict[str, Any]] = []
@@ -201,15 +220,38 @@ def _normalize_items(df) -> List[Dict[str, Any]]:
         market_value = _safe_value(row.get(col_map["market_cap"])) if col_map["market_cap"] else ""
         price_market = _combine_price_market(price_value, market_value) or "招股价/市值待披露"
 
-        sponsor_value = (
-            _safe_value(row.get(col_map["sponsor"])) if col_map["sponsor"] else "保荐人/稳价人待披露"
+        sponsor_raw = _safe_value(row.get(col_map["sponsor"])) if col_map["sponsor"] else ""
+        stabilizer_raw = _safe_value(row.get(col_map["stabilizer"])) if col_map["stabilizer"] else ""
+        sponsor_value = _join_non_empty([sponsor_raw, stabilizer_raw]) or "保荐人/稳价人待披露"
+
+        cornerstone_raw = _safe_value(row.get(col_map["cornerstone"])) if col_map["cornerstone"] else ""
+        cornerstone_value = cornerstone_raw or "基石占比待披露"
+
+        oversub_raw = _safe_value(row.get(col_map["oversub"])) if col_map["oversub"] else ""
+        oversub_value = oversub_raw or "超购倍数待披露"
+
+        greenshoe_raw = _safe_value(row.get(col_map["greenshoe"])) if col_map["greenshoe"] else ""
+        greenshoe_value = greenshoe_raw or "绿鞋/超额配售待披露"
+
+        shares_raw = _safe_value(row.get(col_map["shares"])) if col_map["shares"] else ""
+        shares_value = shares_raw or "发行总手数待披露"
+
+        tranche_raw = _safe_value(row.get(col_map["tranche"])) if col_map["tranche"] else ""
+        tranche_value = tranche_raw or "甲乙组分配比例待披露"
+
+        lottery_raw = _safe_value(row.get(col_map["lottery"])) if col_map["lottery"] else ""
+        lottery_value = lottery_raw or "一手中签率待披露"
+
+        valuation_raw = _safe_value(row.get(col_map["valuation"])) if col_map["valuation"] else ""
+        valuation_value = valuation_raw or "估值水平待披露"
+
+        sponsor_history_raw = (
+            _safe_value(row.get(col_map["sponsor_history"])) if col_map["sponsor_history"] else ""
         )
-        cornerstone_value = (
-            _safe_value(row.get(col_map["cornerstone"])) if col_map["cornerstone"] else "基石占比待披露"
-        )
-        oversub_value = (
-            _safe_value(row.get(col_map["oversub"])) if col_map["oversub"] else "超购倍数待披露"
-        )
+        sponsor_history_value = sponsor_history_raw or "保荐人历史待披露"
+
+        heat_raw = _safe_value(row.get(col_map["heat"])) if col_map["heat"] else ""
+        heat_value = heat_raw or oversub_raw or "认购热度待披露"
 
         business_core = (
             f"主要从事{industry}相关业务，详细业务以招股书披露为准。" if industry else "核心业务待披露。"
@@ -238,11 +280,25 @@ def _normalize_items(df) -> List[Dict[str, Any]]:
                     "sponsorStabilizer": sponsor_value,
                     "cornerstone": cornerstone_value,
                     "oversubscription": oversub_value,
+                    "greenshoe": greenshoe_value,
+                    "totalShares": shares_value,
+                    "trancheAllocation": tranche_value,
+                    "lotteryRate": lottery_value,
+                    "valuation": valuation_value,
+                    "heat": heat_value,
+                    "sponsorHistory": sponsor_history_value,
+                },
+                "dimensions": {
+                    "cornerstone": cornerstone_value,
+                    "sponsorHistory": sponsor_history_value,
+                    "valuation": valuation_value,
+                    "heat": heat_value,
+                    "greenshoe": greenshoe_value,
                 },
                 "scores": {"up": 5.0, "hit": 5.0},
                 "logic": {
-                    "up": "缺少基石/估值/保荐人历史等关键数据，暂以中性分预估。",
-                    "hit": "缺少认购倍数与回拨数据，暂以中性分预估。",
+                    "up": "缺少基石/估值/保荐人历史/热度/绿鞋等关键数据，暂以中性分预估。",
+                    "hit": "缺少发行总手数/回拨/一手中签率等数据，暂以中性分预估。",
                 },
                 "strategy": {
                     "action": "观望或小额申购",

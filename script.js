@@ -59,13 +59,22 @@ const scoreValue = (score) => {
 };
 
 const buildReportText = (ipo) => {
-  return `【${ipo.name} ${ipo.code}】打新综合评估报告\n\n【业务维度概括】\n- 核心业务: ${safeText(ipo.business?.core)}\n- 行业地位: ${safeText(ipo.business?.position)}\n- 营收规模: ${safeText(ipo.business?.revenue)}\n\n【核心数据抓取】\n- 招股价/市值: ${safeText(ipo.coreData?.priceMarketCap)}\n- 保荐人/稳价人: ${safeText(ipo.coreData?.sponsorStabilizer)}\n- 基石占比: ${safeText(ipo.coreData?.cornerstone)}\n- 当前超购倍数: ${safeText(ipo.coreData?.oversubscription)}\n\n【模型评分】\n1. 涨跌概率: ${formatScore(ipo.scores?.up)}\n   逻辑支撑: ${safeText(ipo.logic?.up)}\n2. 打中概率: ${formatScore(ipo.scores?.hit)}\n   逻辑支撑: ${safeText(ipo.logic?.hit)}\n\n【专家操作建议】\n- 申购策略: ${safeText(ipo.strategy?.action)}\n- 风控提示: ${safeText(ipo.strategy?.risk)}`;
+  const coreData = ipo.coreData || {};
+  const dimensions = ipo.dimensions || {};
+
+  return `【${ipo.name} ${ipo.code}】打新综合评估报告\n\n【业务维度概括】\n- 核心业务: ${safeText(ipo.business?.core)}\n- 行业地位: ${safeText(ipo.business?.position)}\n- 营收规模: ${safeText(ipo.business?.revenue)}\n\n【核心数据抓取】\n- 招股价/市值: ${safeText(coreData.priceMarketCap)}\n- 保荐人/稳价人: ${safeText(coreData.sponsorStabilizer)}\n- 基石占比: ${safeText(coreData.cornerstone)}\n- 当前超购倍数: ${safeText(coreData.oversubscription)}\n- 绿鞋/超额配售权: ${safeText(coreData.greenshoe)}\n\n【打中概率关键指标】\n- 发行总手数: ${safeText(coreData.totalShares)}\n- 甲/乙组分配比例: ${safeText(coreData.trancheAllocation)}\n- 预估一手中签率: ${safeText(coreData.lotteryRate)}\n\n【评分维度明细】\n- 基石投资者: ${safeText(dimensions.cornerstone)}\n- 保荐人历史: ${safeText(dimensions.sponsorHistory)}\n- 行业与估值: ${safeText(dimensions.valuation)}\n- 认购热度: ${safeText(dimensions.heat)}\n- 绿鞋/稳价: ${safeText(dimensions.greenshoe)}\n\n【模型评分】\n1. 涨跌概率: ${formatScore(ipo.scores?.up)}\n   逻辑支撑: ${safeText(ipo.logic?.up)}\n2. 打中概率: ${formatScore(ipo.scores?.hit)}\n   逻辑支撑: ${safeText(ipo.logic?.hit)}\n\n【专家操作建议】\n- 申购策略: ${safeText(ipo.strategy?.action)}\n- 风控提示: ${safeText(ipo.strategy?.risk)}`;
 };
 
 const renderReport = (ipo) => {
   if (!reportBody || !reportTitle || !reportSubtitle) return;
+  const coreData = ipo.coreData || {};
+  const dimensions = ipo.dimensions || {};
+
   reportTitle.textContent = `${ipo.name} (${ipo.code}) 打新综合评估报告`;
-  reportSubtitle.textContent = `${safeText(ipo.date, "日期待定")} · ${safeText(ipo.event, "待定")} · ${safeText(ipo.status, "待定")}`;
+  reportSubtitle.textContent = `${safeText(ipo.date, "日期待定")} · ${safeText(ipo.event, "待定")} · ${safeText(
+    ipo.status,
+    "待定"
+  )}`;
 
   reportBody.innerHTML = `
     <div class="report-section">
@@ -87,19 +96,61 @@ const renderReport = (ipo) => {
       <h4>核心数据抓取</h4>
       <div class="report-row">
         <span class="report-label">招股价/市值</span>
-        <span class="report-value">${safeText(ipo.coreData?.priceMarketCap)}</span>
+        <span class="report-value">${safeText(coreData.priceMarketCap)}</span>
       </div>
       <div class="report-row">
         <span class="report-label">保荐人/稳价人</span>
-        <span class="report-value">${safeText(ipo.coreData?.sponsorStabilizer)}</span>
+        <span class="report-value">${safeText(coreData.sponsorStabilizer)}</span>
       </div>
       <div class="report-row">
         <span class="report-label">基石占比</span>
-        <span class="report-value">${safeText(ipo.coreData?.cornerstone)}</span>
+        <span class="report-value">${safeText(coreData.cornerstone)}</span>
       </div>
       <div class="report-row">
         <span class="report-label">当前超购倍数</span>
-        <span class="report-value">${safeText(ipo.coreData?.oversubscription)}</span>
+        <span class="report-value">${safeText(coreData.oversubscription)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">绿鞋/超额配售</span>
+        <span class="report-value">${safeText(coreData.greenshoe)}</span>
+      </div>
+    </div>
+    <div class="report-section">
+      <h4>打中概率关键指标</h4>
+      <div class="report-row">
+        <span class="report-label">发行总手数</span>
+        <span class="report-value">${safeText(coreData.totalShares)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">甲/乙组分配比例</span>
+        <span class="report-value">${safeText(coreData.trancheAllocation)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">预估一手中签率</span>
+        <span class="report-value">${safeText(coreData.lotteryRate)}</span>
+      </div>
+    </div>
+    <div class="report-section">
+      <h4>评分维度明细</h4>
+      <div class="report-row">
+        <span class="report-label">基石投资者</span>
+        <span class="report-value">${safeText(dimensions.cornerstone)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">保荐人历史</span>
+        <span class="report-value">${safeText(dimensions.sponsorHistory)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">行业与估值</span>
+        <span class="report-value">${safeText(dimensions.valuation)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">认购热度</span>
+        <span class="report-value">${safeText(dimensions.heat)}</span>
+      </div>
+      <div class="report-row">
+        <span class="report-label">绿鞋/稳价</span>
+        <span class="report-value">${safeText(dimensions.greenshoe)}</span>
       </div>
     </div>
     <div class="report-section">
